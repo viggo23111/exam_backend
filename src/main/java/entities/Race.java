@@ -78,4 +78,8 @@ public class Race {
     public void setDuration(int duration) {
         this.duration = duration;
     }
+
+    public Set<Car> getCars() {
+        return cars;
+    }
 }

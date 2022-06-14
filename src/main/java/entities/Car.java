@@ -105,4 +105,12 @@ public class Car {
     public void setColor(String color) {
         this.color = color;
     }
+
+    public Set<Race> getRaces() {
+        return races;
+    }
+
+    public Set<Driver> getDrivers() {
+        return drivers;
+    }
 }
