@@ -11,6 +11,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.TypedQuery;
 import java.util.List;
+import java.util.Set;
 
 public class DriverFacade {
 
@@ -46,15 +47,14 @@ public class DriverFacade {
     }
 
 
-    public List<RaceDTO> getRacesByDriverID(int driverID) {
+    public List<RaceDTO> getRacesByUserID(int userID) {
         EntityManager em = emf.createEntityManager();
         try {
-            TypedQuery<Race> query = em.createQuery("SELECT d FROM Driver d WHERE d.car.id=:driverID ", Race.class);
-            query.setParameter("driverID", driverID);
-            List<Race> races = query.getResultList();
-            if(races.size()==0) {
-                System.out.println("None races on that driver");
-            }
+            TypedQuery<Driver> query = em.createQuery("SELECT D FROM Driver d join User u where u=d.user and u.id =:userID", Driver.class);
+            query.setParameter("userID", userID);
+            Driver driver = query.getSingleResult();
+            Car car = driver.getCar();
+            List<Race> races = car.getRaces();
             return RaceDTO.getDtos(races);
         }finally {
             em.close();

@@ -61,6 +61,9 @@ public class LoginEndpoint {
             if(user.getRole().getRoleName().equals("user")){
                 responseJson.addProperty("userType","user");
             }
+            if(user.getRole().getRoleName().equals("driver")){
+                responseJson.addProperty("userType","driver");
+            }
             responseJson.addProperty("userID",user.getId());
             return Response.ok(new Gson().toJson(responseJson)).build();
 

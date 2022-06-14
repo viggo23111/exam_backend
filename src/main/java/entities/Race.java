@@ -82,4 +82,11 @@ public class Race {
     public Set<Car> getCars() {
         return cars;
     }
+
+    public void addCar(Car car) {
+        this.cars.add(car);
+        if(car.getRaces()!=this){
+            car.addRace(this);
+        }
+    }
 }

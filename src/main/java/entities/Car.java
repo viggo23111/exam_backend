@@ -1,7 +1,9 @@
 package entities;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -32,7 +34,7 @@ public class Car {
     private String color;
 
     @ManyToMany(mappedBy = "cars")
-    private Set<Race> races = new HashSet<>();
+    private List<Race> races = new ArrayList<>();
 
     @OneToMany(mappedBy = "car")
     private Set<Driver> drivers = new HashSet<>();
@@ -106,11 +108,18 @@ public class Car {
         this.color = color;
     }
 
-    public Set<Race> getRaces() {
+    public List<Race> getRaces() {
         return races;
     }
 
     public Set<Driver> getDrivers() {
         return drivers;
+    }
+
+    public void addRace(Race race) {
+        this.races.add(race);
+        if(!race.getCars().contains(this)){
+            race.addCar(this);
+        }
     }
 }

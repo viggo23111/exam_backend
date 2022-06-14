@@ -1,8 +1,6 @@
 package facades;
 
-import entities.Car;
-import entities.Driver;
-import entities.Race;
+import entities.*;
 import org.junit.jupiter.api.*;
 import utils.EMF_Creator;
 
@@ -24,6 +22,7 @@ class DriverFacadeTest {
     Driver driver2;
     Driver driver3;
     Driver driver4;
+    User driver1user;
 
     public DriverFacadeTest() {
     }
@@ -52,21 +51,40 @@ class DriverFacadeTest {
         driver3 = new Driver("Susan",1993,"4 years","female");
         driver4 = new Driver("Rachel",2000,"3 years","female");
 
+        driver1user = new User("driver1", "test123");
+        Role driverRole = new Role("driver");
+
+        driver1user.setRole(driverRole);
+        driver1.setUser(driver1user);
+
         driver1.setCar(car1);
         driver2.setCar(car1);
         driver3.setCar(car2);
         driver4.setCar(car2);
 
+        race1.addCar(car1);
+        race1.addCar(car2);
+        race2.addCar(car1);
+
         try {
             em.getTransaction().begin();
-            em.createNamedQuery("Car.deleteAllRows").executeUpdate();
             em.createNamedQuery("Driver.deleteAllRows").executeUpdate();
+            em.createNamedQuery("Race.deleteAllRows").executeUpdate();
+            em.createNamedQuery("Car.deleteAllRows").executeUpdate();
+            em.createNamedQuery("User.deleteAllRows").executeUpdate();
+            em.createNamedQuery("Role.deleteAllRows").executeUpdate();
+            em.persist(driverRole);
+            em.persist(driver1user);
+            em.persist(race1);
+            em.persist(race2);
+            em.persist(race3);
             em.persist(car1);
             em.persist(car2);
             em.persist(driver1);
             em.persist(driver2);
             em.persist(driver3);
             em.persist(driver4);
+
             em.getTransaction().commit();
 
         } finally {
@@ -84,4 +102,9 @@ class DriverFacadeTest {
         assertEquals(4,facade.getAllDrivers().size());
     }
 
+    @Test
+    void getRacesByDriverID() {
+        System.out.println("Test get races by driver id");
+        assertEquals(2,facade.getRacesByUserID(driver1user.getId()).size());
+    }
 }
