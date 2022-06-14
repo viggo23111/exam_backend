@@ -21,7 +21,7 @@ public class Race {
     private String location;
 
     @Column(name = "start_date")
-    private Date startDate;
+    private String startDate;
 
     @Column(name = "duration_in_minutes")
     private int duration;
@@ -32,7 +32,7 @@ public class Race {
     public Race() {
     }
 
-    public Race(String name, String location, Date startDate, int duration) {
+    public Race(String name, String location, String startDate, int duration) {
         this.name = name;
         this.location = location;
         this.startDate = startDate;
@@ -63,11 +63,11 @@ public class Race {
         this.location = location;
     }
 
-    public Date getStartDate() {
+    public String getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(Date startDate) {
+    public void setStartDate(String startDate) {
         this.startDate = startDate;
     }
 

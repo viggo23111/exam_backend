@@ -11,7 +11,7 @@ public class RaceDTO {
     private int id;
     private String name;
     private String location;
-    private Date startDate;
+    private String startDate;
     private int duration;
     private Set<CarDTO> cars = new HashSet<>();
 
@@ -58,11 +58,11 @@ public class RaceDTO {
         this.location = location;
     }
 
-    public Date getStartDate() {
+    public String getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(Date startDate) {
+    public void setStartDate(String startDate) {
         this.startDate = startDate;
     }
 

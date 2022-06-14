@@ -7,9 +7,6 @@ import javax.persistence.TypedQuery;
 
 import security.errorhandling.AuthenticationException;
 
-/**
- * @author lam@cphbusiness.dk
- */
 public class UserFacade {
 
     private static EntityManagerFactory emf;
