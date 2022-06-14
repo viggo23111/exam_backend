@@ -1,5 +1,8 @@
 package facades;
 
+import dtos.CarDTO;
+import dtos.RaceDTO;
+import entities.Car;
 import entities.Race;
 import org.junit.jupiter.api.*;
 import utils.EMF_Creator;
@@ -62,6 +65,14 @@ class RaceFacadeTest {
     void ShowAllRaces() {
         System.out.println("Test show all races");
         assertEquals(3,facade.getAllRaces().size());
+    }
+
+    @Test
+    void createRace() {
+        System.out.println("Test create Race");
+        RaceDTO raceDTO = new RaceDTO(new Race("testRace","Lyngby vej 23","25/07/2022",180));
+        facade.createRace(raceDTO);
+        assertEquals(4,facade.getAllRaces().size());
     }
 
 }

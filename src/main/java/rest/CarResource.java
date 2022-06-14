@@ -9,11 +9,9 @@ import facades.CarFacade;
 import facades.RaceFacade;
 import utils.EMF_Creator;
 
+import javax.annotation.security.RolesAllowed;
 import javax.persistence.EntityManagerFactory;
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.List;
@@ -48,5 +46,15 @@ public class CarResource {
     public Response getAllDriversByCarID(@PathParam("carID") int carID) {
         List<DriverDTO> driverDTOS = FACADE.getDriversByCarID(carID);
         return Response.ok().entity(GSON.toJson(driverDTOS)).build();
+    }
+
+    @POST
+    @RolesAllowed("admin")
+    @Produces({MediaType.APPLICATION_JSON})
+    @Consumes({MediaType.APPLICATION_JSON})
+    public Response createCar(String content){
+        CarDTO pdto = GSON.fromJson(content, CarDTO.class);
+        CarDTO newPdto = FACADE.createCar(pdto);
+        return Response.ok().entity(GSON.toJson(newPdto)).build();
     }
 }

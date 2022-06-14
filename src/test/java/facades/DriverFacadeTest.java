@@ -1,5 +1,7 @@
 package facades;
 
+import dtos.CarDTO;
+import dtos.DriverDTO;
 import entities.*;
 import org.junit.jupiter.api.*;
 import utils.EMF_Creator;
@@ -106,5 +108,15 @@ class DriverFacadeTest {
     void getRacesByDriverID() {
         System.out.println("Test get races by driver id");
         assertEquals(2,facade.getRacesByUserID(driver1user.getId()).size());
+    }
+
+    @Test
+    void createDriver() {
+        System.out.println("Test create driver");
+        DriverDTO driverDTO = new DriverDTO(new Driver("testDriver",1990,"5 years","male"));
+        driverDTO.setUserName("testDriver");
+        driverDTO.setPassword("test123");
+        facade.createDriver(driverDTO);
+        assertEquals(5,facade.getAllDrivers().size());
     }
 }

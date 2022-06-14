@@ -46,6 +46,20 @@ public class CarFacade {
         }
     }
 
+    public CarDTO createCar(CarDTO carDTO){
+        Car car = new Car(carDTO.getName(), carDTO.getBrand(), carDTO.getMake(), carDTO.getYear(), carDTO.getSponsor(), carDTO.getColor());
+        EntityManager em = getEntityManager();
+        try {
+            em.getTransaction().begin();
+            em.persist(car);
+            em.getTransaction().commit();
+        } finally {
+            em.close();
+        }
+        return new CarDTO(car);
+    }
+
+
     public CarDTO getCarByID(int id){
         EntityManager em = emf.createEntityManager();
         try {

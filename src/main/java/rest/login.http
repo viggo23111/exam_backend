@@ -4,3 +4,8 @@ POST http://localhost:8080/devops_starter_war_exploded/api/login
 
 ###
 GET http://localhost:8080/exam_war_exploded/api/race/car/all
+
+###
+POST http://localhost:8080/exam_war_exploded/api/driver
+
+{name: "testCreate", birthYear: "2022", experience: "none", gender: "male", userName:"testUsername", password:"test123"}}

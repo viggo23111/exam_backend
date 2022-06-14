@@ -3,9 +3,7 @@ package facades;
 import dtos.CarDTO;
 import dtos.DriverDTO;
 import dtos.RaceDTO;
-import entities.Car;
-import entities.Driver;
-import entities.Race;
+import entities.*;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -44,6 +42,24 @@ public class DriverFacade {
         } finally {
             em.close();
         }
+    }
+
+    public DriverDTO createDriver(DriverDTO driverDTO){
+        User user = new User(driverDTO.getUserName(), driverDTO.getPassword());
+        Driver driver = new Driver(driverDTO.getName(), driverDTO.getBirthYear(),driverDTO.getExperience(),driverDTO.getGender());
+        driver.setUser(user);
+        EntityManager em = getEntityManager();
+        try {
+            Role driverRole =em.find(Role.class,"driver");
+            user.setRole(driverRole);
+            em.getTransaction().begin();
+            em.persist(user);
+            em.persist(driver);
+            em.getTransaction().commit();
+        } finally {
+            em.close();
+        }
+        return new DriverDTO(driver);
     }
 
 

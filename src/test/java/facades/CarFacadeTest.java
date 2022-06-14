@@ -1,5 +1,6 @@
 package facades;
 
+import dtos.CarDTO;
 import entities.Car;
 import entities.Driver;
 import entities.Race;
@@ -90,5 +91,13 @@ class CarFacadeTest {
     void getCarByID() {
         System.out.println("Test get car by id");
         assertEquals("car1",facade.getCarByID(car1.getId()).getName());
+    }
+
+    @Test
+    void createCar() {
+        System.out.println("Test create car");
+        CarDTO carDTO = new CarDTO(new Car("testCar","testbrand","testMake",2022,"testsponsor","testcolor"));
+        facade.createCar(carDTO);
+        assertEquals(3,facade.getAllCars().size());
     }
 }
