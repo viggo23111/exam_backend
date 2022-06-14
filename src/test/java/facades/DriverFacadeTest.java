@@ -10,11 +10,14 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import java.text.ParseException;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-class CarFacadeTest {
+class DriverFacadeTest {
     private static EntityManagerFactory emf;
-    private static CarFacade facade;
+    private static DriverFacade facade;
+    Race race1;
+    Race race2;
+    Race race3;
     Car car1;
     Car car2;
     Driver driver1;
@@ -22,13 +25,13 @@ class CarFacadeTest {
     Driver driver3;
     Driver driver4;
 
-    public CarFacadeTest() {
+    public DriverFacadeTest() {
     }
 
     @BeforeAll
     public static void setUpClass() {
         emf = EMF_Creator.createEntityManagerFactoryForTest();
-        facade = CarFacade.getCarFacadeExample(emf);
+        facade = DriverFacade.getDriverFacadeExample(emf);
     }
 
     @AfterAll
@@ -39,6 +42,9 @@ class CarFacadeTest {
     @BeforeEach
     public void setUp() throws ParseException {
         EntityManager em = emf.createEntityManager();
+        race1 = new Race("Race1","Vigersalle 37","31/12/2022",80);
+        race2 = new Race("Race2","Vigersalle 37","15/10/2022",60);
+        race3 = new Race("Race3","Vigersalle 37","15/01/2022",40);
         car1 = new Car("car1","audi","RS 7",2022,"Audi sponsor","orange");
         car2 = new Car("car2","Mercedes","CLS 500",2022,"mercedes sponsor","black");
         driver1 = new Driver("Steve",1990,"10 years","male");
@@ -53,9 +59,8 @@ class CarFacadeTest {
 
         try {
             em.getTransaction().begin();
-            em.createNamedQuery("Driver.deleteAllRows").executeUpdate();
             em.createNamedQuery("Car.deleteAllRows").executeUpdate();
-
+            em.createNamedQuery("Driver.deleteAllRows").executeUpdate();
             em.persist(car1);
             em.persist(car2);
             em.persist(driver1);
@@ -74,21 +79,9 @@ class CarFacadeTest {
     }
 
     @Test
-    void ShowAllCars() {
+    void ShowAllDriversTest() {
         System.out.println("Test show all cars");
-        assertEquals(2,facade.getAllCars().size());
+        assertEquals(4,facade.getAllDrivers().size());
     }
 
-    @Test
-    void getDriversByCarID() {
-        System.out.println("Gets drivers by car");
-        System.out.println(facade.getDriversByCarID(car2.getId()));
-        assertEquals(2,facade.getDriversByCarID(car1.getId()).size());
-    }
-
-    @Test
-    void getCarByID() {
-        System.out.println("Test get car by id");
-        assertEquals("car1",facade.getCarByID(car1.getId()).getName());
-    }
 }
