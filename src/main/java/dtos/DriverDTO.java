@@ -100,17 +100,18 @@ public class DriverDTO {
         this.password = password;
     }
 
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         DriverDTO driverDTO = (DriverDTO) o;
-        return id == driverDTO.id && birthYear == driverDTO.birthYear && userID == driverDTO.userID && Objects.equals(name, driverDTO.name) && Objects.equals(experience, driverDTO.experience) && Objects.equals(gender, driverDTO.gender);
+        return id == driverDTO.id && birthYear == driverDTO.birthYear && userID == driverDTO.userID && Objects.equals(name, driverDTO.name) && Objects.equals(experience, driverDTO.experience) && Objects.equals(gender, driverDTO.gender) && Objects.equals(userName, driverDTO.userName) && Objects.equals(password, driverDTO.password);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, birthYear, experience, gender, userID);
+        return Objects.hash(id, name, birthYear, experience, gender, userID, userName, password);
     }
 
     @Override
