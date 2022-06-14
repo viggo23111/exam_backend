@@ -27,6 +27,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.containsInAnyOrder;
 import static org.hamcrest.Matchers.equalTo;
 
+@Disabled
 public class CarEndpointTest {
     private static final int SERVER_PORT = 7777;
     private static final String SERVER_URL = "http://localhost/api";
@@ -142,7 +143,6 @@ public class CarEndpointTest {
         given().when().get("/info").then().statusCode(200);
     }
 
-    @Disabled
     @Test
     public void TestCarCreated() {
         Car car = new Car("car2","Mercedes","CLS 500",2022,"mercedes sponsor","black","image");
@@ -165,7 +165,7 @@ public class CarEndpointTest {
                 .body("name", equalTo("car2"))
                 .body("brand", equalTo("Mercedes"));
     }
-    @Disabled
+
     @Test
     void getCarByID() {
         login("admin", "test");
@@ -181,7 +181,7 @@ public class CarEndpointTest {
         CarDTO carDTO1 = new CarDTO(car1);
         assertThat(carDTO1,equalTo(carDTO));
     }
-    @Disabled
+
     @Test
     void getDriversByCarID() {
         login("admin", "test");
@@ -199,7 +199,6 @@ public class CarEndpointTest {
         assertThat(driverDTOS,containsInAnyOrder(driverDTO1));
     }
 
-    @Disabled
     @Test
     public void TestCarUpdated() {
 
