@@ -144,8 +144,6 @@ public class Car {
 
     public void addDriver(Driver driver) {
         this.drivers.add(driver);
-        if(!driver.getCar().equals(this)){
-            driver.setCar(this);
-        }
+        driver.setCar(this);
     }
 }
