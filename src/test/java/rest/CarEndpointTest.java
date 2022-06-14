@@ -142,6 +142,7 @@ public class CarEndpointTest {
         given().when().get("/info").then().statusCode(200);
     }
 
+    @Disabled
     @Test
     public void TestCarCreated() {
         Car car = new Car("car2","Mercedes","CLS 500",2022,"mercedes sponsor","black","image");
@@ -164,7 +165,7 @@ public class CarEndpointTest {
                 .body("name", equalTo("car2"))
                 .body("brand", equalTo("Mercedes"));
     }
-
+    @Disabled
     @Test
     void getCarByID() {
         login("admin", "test");
@@ -180,7 +181,7 @@ public class CarEndpointTest {
         CarDTO carDTO1 = new CarDTO(car1);
         assertThat(carDTO1,equalTo(carDTO));
     }
-
+    @Disabled
     @Test
     void getDriversByCarID() {
         login("admin", "test");
@@ -198,7 +199,7 @@ public class CarEndpointTest {
         assertThat(driverDTOS,containsInAnyOrder(driverDTO1));
     }
 
-
+    @Disabled
     @Test
     public void TestCarUpdated() {
 
