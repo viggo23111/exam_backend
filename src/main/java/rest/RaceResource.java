@@ -50,7 +50,7 @@ public class RaceResource {
     }
 
     @PUT
-    @Path("edit/")
+    @Path("/edit/")
     @RolesAllowed("admin")
     @Produces({MediaType.APPLICATION_JSON})
     @Consumes({MediaType.APPLICATION_JSON})

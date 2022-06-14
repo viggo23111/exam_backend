@@ -76,4 +76,29 @@ public class DriverFacade {
             em.close();
         }
     }
+    public DriverDTO getDriverByID(int id){
+        EntityManager em = emf.createEntityManager();
+        try {
+            return new DriverDTO( em.find(Driver.class,id));
+        } finally {
+            em.close();
+        }
+    }
+
+    public DriverDTO updateDriver(DriverDTO driverDTO) {
+        EntityManager em = getEntityManager();
+        Driver driver = em.find(Driver.class, driverDTO.getId());
+        if (driver == null) {
+            System.out.println("not found");
+        }else {
+            driver.setName(driverDTO.getName());
+            driver.setBirthYear(driverDTO.getBirthYear());
+            driver.setExperience(driverDTO.getExperience());
+            driver.setGender(driverDTO.getGender());
+            em.getTransaction().begin();
+            em.merge(driver);
+            em.getTransaction().commit();
+        }
+        return new DriverDTO(driver);
+    }
 }

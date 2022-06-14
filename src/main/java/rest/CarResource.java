@@ -5,6 +5,7 @@ import com.google.gson.GsonBuilder;
 import dtos.CarDTO;
 import dtos.DriverDTO;
 import dtos.RaceDTO;
+import entities.Car;
 import facades.CarFacade;
 import facades.RaceFacade;
 import utils.EMF_Creator;
@@ -34,7 +35,7 @@ public class CarResource {
     @GET
     @Path("/{carID}")
     @Produces({MediaType.APPLICATION_JSON})
-    public Response getCarByBoatID(@PathParam("carID") int carID) {
+    public Response getCarByID(@PathParam("carID") int carID) {
         CarDTO carDTO = FACADE.getCarByID(carID);
         return Response.ok().entity(GSON.toJson(carDTO)).build();
     }
@@ -75,4 +76,16 @@ public class CarResource {
         CarDTO updated = FACADE.addDriverToCar(carID,driverID);
         return Response.ok().entity(GSON.toJson(updated)).build();
     }
+
+    @PUT
+    @Path("/edit/")
+    @RolesAllowed("admin")
+    @Produces({MediaType.APPLICATION_JSON})
+    @Consumes({MediaType.APPLICATION_JSON})
+    public Response updateCar(String content){
+        CarDTO carDTO = GSON.fromJson(content, CarDTO.class);
+        CarDTO updatedCar = FACADE.updateCar(carDTO);
+        return Response.ok().entity(GSON.toJson(updatedCar)).build();
+    }
+
 }

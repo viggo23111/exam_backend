@@ -32,6 +32,14 @@ public class DriverResource {
     }
 
     @GET
+    @Path("/{driverID}")
+    @Produces({MediaType.APPLICATION_JSON})
+    public Response getDriverByID(@PathParam("driverID") int driverID) {
+        DriverDTO driverDTO = FACADE.getDriverByID(driverID);
+        return Response.ok().entity(GSON.toJson(driverDTO)).build();
+    }
+
+    @GET
     @Path("/{userID}/races")
     @Produces({MediaType.APPLICATION_JSON})
     public Response getRacesByDriverID(@PathParam("userID") int userID) {
@@ -47,5 +55,16 @@ public class DriverResource {
         DriverDTO pdto = GSON.fromJson(content, DriverDTO.class);
         DriverDTO newPdto = FACADE.createDriver(pdto);
         return Response.ok().entity(GSON.toJson(newPdto)).build();
+    }
+
+    @PUT
+    @Path("/edit/")
+    @RolesAllowed("admin")
+    @Produces({MediaType.APPLICATION_JSON})
+    @Consumes({MediaType.APPLICATION_JSON})
+    public Response updateDriver(String content){
+        DriverDTO driverDTO = GSON.fromJson(content, DriverDTO.class);
+        DriverDTO updatedDriver = FACADE.updateDriver(driverDTO);
+        return Response.ok().entity(GSON.toJson(updatedDriver)).build();
     }
 }
