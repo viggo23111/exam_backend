@@ -122,4 +122,16 @@ public class Car {
             race.addCar(this);
         }
     }
+
+    public void removeDriver(Driver driver) {
+        this.drivers.remove(driver);
+        driver.setCar(null);
+    }
+
+    public void addDriver(Driver driver) {
+        this.drivers.add(driver);
+        if(!driver.getCar().equals(this)){
+            driver.setCar(this);
+        }
+    }
 }

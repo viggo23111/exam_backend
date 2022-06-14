@@ -72,8 +72,6 @@ public class CarFacade {
         }
     }
 
-
-
     public List<DriverDTO> getDriversByCarID(int carID) {
         EntityManager em = emf.createEntityManager();
         try {
@@ -88,5 +86,72 @@ public class CarFacade {
         }finally {
             em.close();
         }
+    }
+
+    public CarDTO removeDriverFromCar(int carID, int driverID) {
+        EntityManager em = emf.createEntityManager();
+        try{
+            Car car = em.find(Car.class,carID);
+            if(car == null){
+                System.out.println("Car not found");
+            }
+            Driver driver = em.find(Driver.class,driverID);
+            if(driver == null){
+                System.out.println("Driver not found");
+            }
+            car.removeDriver(driver);
+            CarDTO updated = new CarDTO(car);
+            em.getTransaction().begin();
+            em.merge(car);
+            em.merge(driver);
+            em.getTransaction().commit();
+            return updated;
+        } finally {
+            em.close();
+        }
+    }
+
+    public CarDTO addDriverToCar(int carID, int driverID) {
+        EntityManager em = emf.createEntityManager();
+        try{
+            Car car = em.find(Car.class,carID);
+            if(car == null){
+                System.out.println("Car not found");
+            }
+            Driver driver = em.find(Driver.class,driverID);
+            if(driver == null){
+                System.out.println("Driver not found");
+            }
+            car.addDriver(driver);
+            CarDTO updated = new CarDTO(car);
+            em.getTransaction().begin();
+            em.merge(car);
+            em.merge(driver);
+            em.getTransaction().commit();
+            return updated;
+        } finally {
+            em.close();
+        }
+    }
+
+    public CarDTO updateCar(CarDTO carDTO) {
+        System.out.println(carDTO.getName());
+        EntityManager em = getEntityManager();
+        Car car = em.find(Car.class, carDTO.getId());
+        if (car == null) {
+            System.out.println("not found");
+        }else {
+            car.setName(carDTO.getName());
+            car.setBrand(carDTO.getBrand());
+            car.setMake(carDTO.getMake());
+            car.setYear(carDTO.getYear());
+            car.setColor(carDTO.getColor());
+            car.setSponsor(carDTO.getSponsor());
+
+            em.getTransaction().begin();
+            em.merge(car);
+            em.getTransaction().commit();
+        }
+        return new CarDTO(car);
     }
 }

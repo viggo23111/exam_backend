@@ -20,6 +20,8 @@ class RaceFacadeTest {
 
     private static EntityManagerFactory emf;
     private static RaceFacade facade;
+    Car car1;
+    Car car2;
     Race race1;
     Race race2;
     Race race3;
@@ -41,15 +43,22 @@ class RaceFacadeTest {
     @BeforeEach
     public void setUp() throws ParseException {
         EntityManager em = emf.createEntityManager();
+        car1 = new Car("car1","audi","RS 7",2022,"Audi sponsor","orange");
+        car2 = new Car("car2","Mercedes","CLS 500",2022,"mercedes sponsor","black");
         race1 = new Race("Race1","Vigersalle 37","31/12/2022",80);
         race2 = new Race("Race2","Vigersalle 37","15/10/2022",60);
         race3 = new Race("Race3","Vigersalle 37","15/01/2022",40);
+
+        race1.addCar(car1);
+        race1.addCar(car2);
         try {
             em.getTransaction().begin();
             em.createNamedQuery("Race.deleteAllRows").executeUpdate();
             em.persist(race1);
             em.persist(race2);
             em.persist(race3);
+            em.persist(car1);
+            em.persist(car2);
             em.getTransaction().commit();
 
         } finally {
@@ -75,4 +84,40 @@ class RaceFacadeTest {
         assertEquals(4,facade.getAllRaces().size());
     }
 
+    @Test
+    void getRaceByID() {
+        System.out.println("Test get race by id");
+        assertEquals("Race2",facade.getRaceByID(race2.getId()).getName());
+    }
+
+    @Test
+    void getCarsByRaceID() {
+        System.out.println("Test get cars by RaceID");
+        assertEquals(2,facade.getCarsByRaceID(race1.getId()).size());
+    }
+
+    @Test
+    void updateRace() {
+        System.out.println("Test update race");
+        RaceDTO raceDTO = new RaceDTO(race1);
+        raceDTO.setName("race1Updated");
+        raceDTO.setDuration(99);
+        raceDTO.setLocation("vigerslev test");
+        raceDTO.setStartDate("31/11/2022");
+        assertEquals("race1Updated",facade.updateRace(raceDTO).getName());
+    }
+
+    @Test
+    void removeCarFromRace() {
+        System.out.println("Test remove car from race");
+        facade.removeCarFromRace(race1.getId(),car1.getId());
+        assertEquals(1,facade.getCarsByRaceID(race1.getId()).size());
+    }
+
+    @Test
+    void AddCarToRace() {
+        System.out.println("Test add car to race");
+        facade.addCarToRace(race3.getId(),car1.getId());
+        assertEquals(1,facade.getCarsByRaceID(race3.getId()).size());
+    }
 }

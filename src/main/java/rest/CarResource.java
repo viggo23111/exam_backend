@@ -43,7 +43,7 @@ public class CarResource {
     @GET
     @Path("/{carID}/drivers/")
     @Produces({MediaType.APPLICATION_JSON})
-    public Response getAllDriversByCarID(@PathParam("carID") int carID) {
+    public Response getDriversByCarID(@PathParam("carID") int carID) {
         List<DriverDTO> driverDTOS = FACADE.getDriversByCarID(carID);
         return Response.ok().entity(GSON.toJson(driverDTOS)).build();
     }
@@ -56,5 +56,23 @@ public class CarResource {
         CarDTO pdto = GSON.fromJson(content, CarDTO.class);
         CarDTO newPdto = FACADE.createCar(pdto);
         return Response.ok().entity(GSON.toJson(newPdto)).build();
+    }
+
+    @PUT
+    @RolesAllowed("admin")
+    @Path("/remove/{carID}/{driverID}")
+    @Produces({MediaType.APPLICATION_JSON})
+    public Response removeCarFromRace(@PathParam("carID") int carID, @PathParam("driverID") int driverID) {
+        CarDTO updated = FACADE.removeDriverFromCar(carID,driverID);
+        return Response.ok().entity(GSON.toJson(updated)).build();
+    }
+
+    @PUT
+    @RolesAllowed("admin")
+    @Path("/add/{carID}/{driverID}")
+    @Produces({MediaType.APPLICATION_JSON})
+    public Response addCarToRace(@PathParam("carID") int carID, @PathParam("driverID") int driverID) {
+        CarDTO updated = FACADE.addDriverToCar(carID,driverID);
+        return Response.ok().entity(GSON.toJson(updated)).build();
     }
 }

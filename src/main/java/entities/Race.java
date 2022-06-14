@@ -89,4 +89,11 @@ public class Race {
             car.addRace(this);
         }
     }
+
+    public void removeCar(Car car) {
+        this.cars.remove(car);
+        if(car.getRaces().contains(this)){
+            car.getRaces().remove(this);
+        }
+    }
 }
