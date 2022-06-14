@@ -2,7 +2,9 @@ package rest;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import dtos.CarDTO;
 import dtos.RaceDTO;
+import facades.CarFacade;
 import facades.RaceFacade;
 import utils.EMF_Creator;
 
@@ -28,4 +30,5 @@ public class RaceResource {
         List<RaceDTO> raceDTOS = FACADE.getAllRaces();
         return Response.ok().entity(GSON.toJson(raceDTOS)).build();
     }
+
 }

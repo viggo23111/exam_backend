@@ -17,8 +17,8 @@ public class CarDTO {
     private int year;
     private String sponsor;
     private String color;
-    private Set<RaceDTO> races = new HashSet<>();
     private Set<DriverDTO> drivers = new HashSet<>();
+
 
     public CarDTO(Car car) {
         this.id = car.getId();
@@ -28,14 +28,11 @@ public class CarDTO {
         this.year =  car.getYear();
         this.sponsor =  car.getSponsor();
         this.color =  car.getColor();
-
-        for (Race race : car.getRaces()) {
-            this.races.add(new RaceDTO(race));
-        }
-
         for (Driver driver : car.getDrivers()) {
             this.drivers.add(new DriverDTO(driver));
         }
+
+
 
     }
     public static List<CarDTO> getDtos(List<Car> carList){
@@ -100,32 +97,31 @@ public class CarDTO {
         this.color = color;
     }
 
-    public Set<RaceDTO> getRaces() {
-        return races;
-    }
 
-    public void setRaces(Set<RaceDTO> races) {
-        this.races = races;
-    }
-
-    public Set<DriverDTO> getDrivers() {
-        return drivers;
-    }
-
-    public void setDrivers(Set<DriverDTO> drivers) {
-        this.drivers = drivers;
-    }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         CarDTO carDTO = (CarDTO) o;
-        return id == carDTO.id && year == carDTO.year && Objects.equals(name, carDTO.name) && Objects.equals(brand, carDTO.brand) && Objects.equals(make, carDTO.make) && Objects.equals(sponsor, carDTO.sponsor) && Objects.equals(color, carDTO.color) && Objects.equals(races, carDTO.races) && Objects.equals(drivers, carDTO.drivers);
+        return id == carDTO.id && year == carDTO.year && Objects.equals(name, carDTO.name) && Objects.equals(brand, carDTO.brand) && Objects.equals(make, carDTO.make) && Objects.equals(sponsor, carDTO.sponsor) && Objects.equals(color, carDTO.color);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, brand, make, year, sponsor, color, races, drivers);
+        return Objects.hash(id, name, brand, make, year, sponsor, color);
+    }
+
+    @Override
+    public String toString() {
+        return "CarDTO{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", brand='" + brand + '\'' +
+                ", make='" + make + '\'' +
+                ", year=" + year +
+                ", sponsor='" + sponsor + '\'' +
+                ", color='" + color + '\'' +
+                '}';
     }
 }

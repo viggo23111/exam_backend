@@ -1,3 +1,6 @@
 POST http://localhost:8080/devops_starter_war_exploded/api/login
 
 {"username": "user","password": "test12113"}
+
+###
+GET http://localhost:8080/exam_war_exploded/api/race/car/all

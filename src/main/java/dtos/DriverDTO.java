@@ -18,8 +18,7 @@ public class DriverDTO {
     private int birthYear;
     private String experience;
     private String gender;
-    private Car car;
-    private User user;
+    private int userID;
 
     public DriverDTO(Driver driver) {
         this.id = driver.getId();
@@ -27,8 +26,10 @@ public class DriverDTO {
         this.birthYear = driver.getBirthYear();
         this.experience = driver.getExperience();
         this.gender = driver.getGender();
-        this.car = driver.getCar();
-        this.user = driver.getUser();
+        if(driver.getUser()!=null) {
+            this.userID = driver.getUser().getId();
+        }
+
     }
 
     public static List<DriverDTO> getDtos(List<Driver> driverList){
@@ -77,20 +78,8 @@ public class DriverDTO {
         this.gender = gender;
     }
 
-    public Car getCar() {
-        return car;
-    }
-
-    public void setCar(Car car) {
-        this.car = car;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
+    public int getUserID() {
+        return userID;
     }
 
     @Override
@@ -98,11 +87,23 @@ public class DriverDTO {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         DriverDTO driverDTO = (DriverDTO) o;
-        return id == driverDTO.id && birthYear == driverDTO.birthYear && Objects.equals(name, driverDTO.name) && Objects.equals(experience, driverDTO.experience) && Objects.equals(gender, driverDTO.gender) && Objects.equals(car, driverDTO.car) && Objects.equals(user, driverDTO.user);
+        return id == driverDTO.id && birthYear == driverDTO.birthYear && userID == driverDTO.userID && Objects.equals(name, driverDTO.name) && Objects.equals(experience, driverDTO.experience) && Objects.equals(gender, driverDTO.gender);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, birthYear, experience, gender, car, user);
+        return Objects.hash(id, name, birthYear, experience, gender, userID);
+    }
+
+    @Override
+    public String toString() {
+        return "DriverDTO{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", birthYear=" + birthYear +
+                ", experience='" + experience + '\'' +
+                ", gender='" + gender + '\'' +
+                ", userID=" + userID +
+                '}';
     }
 }
