@@ -145,4 +145,19 @@ public class RaceFacade {
         }
     }
 
+    public void deleteRace(int raceID) {
+        EntityManager em = emf.createEntityManager();
+        try {
+            Race race = em.find(Race.class, raceID);
+            if(race == null){
+                System.out.println("Race with provided id was not found");
+            }
+            em.getTransaction().begin();
+            em.remove(race);
+            em.getTransaction().commit();
+        }finally {
+            em.close();
+        }
+    }
+
 }

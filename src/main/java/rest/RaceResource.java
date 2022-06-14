@@ -87,4 +87,14 @@ public class RaceResource {
         return Response.ok().entity(GSON.toJson(carDTOS)).build();
     }
 
+    @DELETE
+    @Path("/delete/{raceID}")
+    @Produces({MediaType.APPLICATION_JSON})
+    @Consumes({MediaType.APPLICATION_JSON})
+    public Response deleteRace(@PathParam("raceID") int raceID) {
+        FACADE.deleteRace(raceID);
+        return Response.ok().entity("Deleted").build();
+    }
+
+
 }

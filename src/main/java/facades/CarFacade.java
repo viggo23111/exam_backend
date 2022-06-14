@@ -47,7 +47,7 @@ public class CarFacade {
     }
 
     public CarDTO createCar(CarDTO carDTO){
-        Car car = new Car(carDTO.getName(), carDTO.getBrand(), carDTO.getMake(), carDTO.getYear(), carDTO.getSponsor(), carDTO.getColor());
+        Car car = new Car(carDTO.getName(), carDTO.getBrand(), carDTO.getMake(), carDTO.getYear(), carDTO.getSponsor(), carDTO.getColor(), carDTO.getImage());
         EntityManager em = getEntityManager();
         try {
             em.getTransaction().begin();
@@ -147,6 +147,7 @@ public class CarFacade {
             car.setYear(carDTO.getYear());
             car.setColor(carDTO.getColor());
             car.setSponsor(carDTO.getSponsor());
+            car.setImage(carDTO.getImage());
 
             em.getTransaction().begin();
             em.merge(car);

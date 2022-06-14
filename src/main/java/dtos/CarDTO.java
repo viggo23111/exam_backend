@@ -17,6 +17,7 @@ public class CarDTO {
     private int year;
     private String sponsor;
     private String color;
+    private String image;
     private Set<DriverDTO> drivers = new HashSet<>();
 
 
@@ -28,6 +29,7 @@ public class CarDTO {
         this.year =  car.getYear();
         this.sponsor =  car.getSponsor();
         this.color =  car.getColor();
+        this.image =  car.getImage();
         for (Driver driver : car.getDrivers()) {
             this.drivers.add(new DriverDTO(driver));
         }
@@ -97,19 +99,25 @@ public class CarDTO {
         this.color = color;
     }
 
+    public String getImage() {
+        return image;
+    }
 
+    public void setImage(String image) {
+        this.image = image;
+    }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         CarDTO carDTO = (CarDTO) o;
-        return id == carDTO.id && year == carDTO.year && Objects.equals(name, carDTO.name) && Objects.equals(brand, carDTO.brand) && Objects.equals(make, carDTO.make) && Objects.equals(sponsor, carDTO.sponsor) && Objects.equals(color, carDTO.color);
+        return id == carDTO.id && year == carDTO.year && Objects.equals(name, carDTO.name) && Objects.equals(brand, carDTO.brand) && Objects.equals(make, carDTO.make) && Objects.equals(sponsor, carDTO.sponsor) && Objects.equals(color, carDTO.color) && Objects.equals(image, carDTO.image) && Objects.equals(drivers, carDTO.drivers);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, brand, make, year, sponsor, color);
+        return Objects.hash(id, name, brand, make, year, sponsor, color, image, drivers);
     }
 
     @Override
@@ -122,6 +130,7 @@ public class CarDTO {
                 ", year=" + year +
                 ", sponsor='" + sponsor + '\'' +
                 ", color='" + color + '\'' +
+                ", image='" + image + '\'' +
                 '}';
     }
 }

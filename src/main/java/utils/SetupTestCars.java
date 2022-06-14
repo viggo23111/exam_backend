@@ -13,8 +13,8 @@ public class SetupTestCars {
 
         EntityManagerFactory emf = EMF_Creator.createEntityManagerFactory();
         EntityManager em = emf.createEntityManager();
-        Car car1 = new Car("car1","audi","RS 7",2022,"Audi sponsor","orange");
-        Car car2 = new Car("car2","Mercedes","CLS 500",2022,"mercedes sponsor","black");
+        Car car1 = new Car("car1","audi","RS 7",2022,"Audi sponsor","orange","img");
+        Car car2 = new Car("car2","Mercedes","CLS 500",2022,"mercedes sponsor","black","img");
         Driver driver1 = new Driver("Steve",1990,"10 years","male");
         Driver driver2 = new Driver("Charles",1995,"5 years","male");
         Driver driver3 = new Driver("Susan",1993,"4 years","female");

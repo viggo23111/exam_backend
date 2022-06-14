@@ -2,10 +2,9 @@ package rest;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import dtos.CarDTO;
 import dtos.DriverDTO;
 import dtos.RaceDTO;
-import entities.Driver;
+import errorhandling.UsernameTakenException;
 import facades.DriverFacade;
 import utils.EMF_Creator;
 
@@ -51,7 +50,7 @@ public class DriverResource {
     @RolesAllowed("admin")
     @Produces({MediaType.APPLICATION_JSON})
     @Consumes({MediaType.APPLICATION_JSON})
-    public Response createDriver(String content){
+    public Response createDriver(String content) throws UsernameTakenException {
         DriverDTO pdto = GSON.fromJson(content, DriverDTO.class);
         DriverDTO newPdto = FACADE.createDriver(pdto);
         return Response.ok().entity(GSON.toJson(newPdto)).build();

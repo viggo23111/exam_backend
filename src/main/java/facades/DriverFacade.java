@@ -1,15 +1,15 @@
 package facades;
 
-import dtos.CarDTO;
 import dtos.DriverDTO;
 import dtos.RaceDTO;
 import entities.*;
+import errorhandling.UsernameTakenException;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.NoResultException;
 import javax.persistence.TypedQuery;
 import java.util.List;
-import java.util.Set;
 
 public class DriverFacade {
 
@@ -43,8 +43,26 @@ public class DriverFacade {
             em.close();
         }
     }
+    private static boolean usernameTaken(String username) {
+        EntityManager em = emf.createEntityManager();
+        try {
+            TypedQuery<User> query = em.createQuery("SELECT u from User u where u.userName =:username", User.class);
+            query.setParameter("username", username);
+            try {
+                User userFound = query.getSingleResult();
+            } catch (NoResultException e) {
+                return false;
+            }
+        } finally {
+            em.close();
+        }
+        return true;
+    }
 
-    public DriverDTO createDriver(DriverDTO driverDTO){
+    public DriverDTO createDriver(DriverDTO driverDTO) throws UsernameTakenException {
+        if (usernameTaken(driverDTO.getUserName())) {
+            throw new UsernameTakenException("Username is taken");
+        }
         User user = new User(driverDTO.getUserName(), driverDTO.getPassword());
         Driver driver = new Driver(driverDTO.getName(), driverDTO.getBirthYear(),driverDTO.getExperience(),driverDTO.getGender());
         driver.setUser(user);

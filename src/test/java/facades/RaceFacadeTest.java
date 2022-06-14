@@ -43,8 +43,8 @@ class RaceFacadeTest {
     @BeforeEach
     public void setUp() throws ParseException {
         EntityManager em = emf.createEntityManager();
-        car1 = new Car("car1","audi","RS 7",2022,"Audi sponsor","orange");
-        car2 = new Car("car2","Mercedes","CLS 500",2022,"mercedes sponsor","black");
+        car1 = new Car("car1","audi","RS 7",2022,"Audi sponsor","orange","img");
+        car2 = new Car("car2","Mercedes","CLS 500",2022,"mercedes sponsor","black","img");
         race1 = new Race("Race1","Vigersalle 37","31/12/2022",80);
         race2 = new Race("Race2","Vigersalle 37","15/10/2022",60);
         race3 = new Race("Race3","Vigersalle 37","15/01/2022",40);
@@ -119,5 +119,13 @@ class RaceFacadeTest {
         System.out.println("Test add car to race");
         facade.addCarToRace(race3.getId(),car1.getId());
         assertEquals(1,facade.getCarsByRaceID(race3.getId()).size());
+    }
+
+    @Test
+    void deleteRace() {
+        System.out.println("Test delete race");
+        facade.deleteRace(race1.getId());
+        facade.deleteRace(race2.getId());
+        assertEquals(1,facade.getAllRaces().size());
     }
 }

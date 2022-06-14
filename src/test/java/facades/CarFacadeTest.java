@@ -41,8 +41,8 @@ class CarFacadeTest {
     @BeforeEach
     public void setUp() throws ParseException {
         EntityManager em = emf.createEntityManager();
-        car1 = new Car("car1","audi","RS 7",2022,"Audi sponsor","orange");
-        car2 = new Car("car2","Mercedes","CLS 500",2022,"mercedes sponsor","black");
+        car1 = new Car("car1","audi","RS 7",2022,"Audi sponsor","orange","image");
+        car2 = new Car("car2","Mercedes","CLS 500",2022,"mercedes sponsor","black","image");
         driver1 = new Driver("Steve",1990,"10 years","male");
         driver2 = new Driver("Charles",1995,"5 years","male");
         driver3 = new Driver("Susan",1993,"4 years","female");
@@ -97,7 +97,7 @@ class CarFacadeTest {
     @Test
     void createCar() {
         System.out.println("Test create car");
-        CarDTO carDTO = new CarDTO(new Car("testCar","testbrand","testMake",2022,"testsponsor","testcolor"));
+        CarDTO carDTO = new CarDTO(new Car("testCar","testbrand","testMake",2022,"testsponsor","testcolor","image"));
         facade.createCar(carDTO);
         assertEquals(3,facade.getAllCars().size());
     }

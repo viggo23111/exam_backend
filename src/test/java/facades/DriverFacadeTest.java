@@ -1,9 +1,8 @@
 package facades;
 
-import dtos.CarDTO;
 import dtos.DriverDTO;
-import dtos.RaceDTO;
 import entities.*;
+import errorhandling.UsernameTakenException;
 import org.junit.jupiter.api.*;
 import utils.EMF_Creator;
 
@@ -47,8 +46,8 @@ class DriverFacadeTest {
         race1 = new Race("Race1","Vigersalle 37","31/12/2022",80);
         race2 = new Race("Race2","Vigersalle 37","15/10/2022",60);
         race3 = new Race("Race3","Vigersalle 37","15/01/2022",40);
-        car1 = new Car("car1","audi","RS 7",2022,"Audi sponsor","orange");
-        car2 = new Car("car2","Mercedes","CLS 500",2022,"mercedes sponsor","black");
+        car1 = new Car("car1","audi","RS 7",2022,"Audi sponsor","orange","image");
+        car2 = new Car("car2","Mercedes","CLS 500",2022,"mercedes sponsor","black","image");
         driver1 = new Driver("Steve",1990,"10 years","male");
         driver2 = new Driver("Charles",1995,"5 years","male");
         driver3 = new Driver("Susan",1993,"4 years","female");
@@ -118,7 +117,7 @@ class DriverFacadeTest {
     }
 
     @Test
-    void createDriver() {
+    void createDriver() throws UsernameTakenException {
         System.out.println("Test create driver");
         DriverDTO driverDTO = new DriverDTO(new Driver("testDriver",1990,"5 years","male"));
         driverDTO.setUserName("testDriver");

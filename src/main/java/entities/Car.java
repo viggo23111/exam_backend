@@ -33,6 +33,9 @@ public class Car {
     @Column(name = "color")
     private String color;
 
+    @Column(name = "img_url")
+    private String image;
+
     @ManyToMany(mappedBy = "cars")
     private List<Race> races = new ArrayList<>();
 
@@ -43,13 +46,15 @@ public class Car {
     public Car() {
     }
 
-    public Car(String name, String brand, String make, int year, String sponsor, String color) {
+    public Car(String name, String brand, String make, int year, String sponsor, String color, String image) {
         this.name = name;
         this.brand = brand;
         this.make = make;
         this.year = year;
         this.sponsor = sponsor;
         this.color = color;
+        this.image =image;
+
     }
 
     public int getId() {
@@ -108,6 +113,14 @@ public class Car {
         this.color = color;
     }
 
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
     public List<Race> getRaces() {
         return races;
     }
@@ -115,6 +128,7 @@ public class Car {
     public Set<Driver> getDrivers() {
         return drivers;
     }
+
 
     public void addRace(Race race) {
         this.races.add(race);

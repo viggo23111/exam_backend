@@ -24,8 +24,8 @@ public class SetupTestData {
     Race race2 = new Race("Race2","Vigersalle 37","15/10/2022",60);
     Race race3 = new Race("Race3","Vigersalle 37","15/01/2022",40);
 
-    Car car1 = new Car("car1","audi","RS 7",2022,"Audi sponsor","orange");
-    Car car2 = new Car("car2","Mercedes","CLS 500",2022,"mercedes sponsor","black");
+    Car car1 = new Car("car1","audi","RS 7",2022,"Audi sponsor","orange","https://cdn.mandesager.dk/wp-content/uploads/2021/10/Mansory-Audi-RS7_1.jpg");
+    Car car2 = new Car("car2","Mercedes","CLS 500",2022,"mercedes sponsor","black","https://media.evo.co.uk/image/private/s--4SeXnIe1--/v1556261698/evo/images/dir_801/car_photo_400801.jpg");
 
     Driver driver1 = new Driver("Steve",1990,"10 years","male");
     Driver driver2 = new Driver("Charles",1995,"5 years","male");
